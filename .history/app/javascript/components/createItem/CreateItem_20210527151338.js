@@ -1,5 +1,5 @@
-import React, { useState} from 'react'
-import { useHistory, Link } from 'react-router-dom';
+import React, { useState, useEffect} from 'react'
+import { useHistory } from 'react-router';
 import {Form, Button, Container } from 'react-bootstrap'
 import httpFetchHelper from '../../utlities/httpHelper';
 import constants from '../../utlities/constants';
@@ -22,7 +22,7 @@ const CreateItem = () => {
     error: false
   });
   const [costError, setCostError] = useState({
-    msg: 'Item must be non-negative with a max of two decimal places',
+    msg: 'Item must be non-negative decimal',
     error: false 
   });
 
@@ -47,7 +47,6 @@ const CreateItem = () => {
         break;
     }
   }
-
   const resetValidationErrors = () => {
     setNameError({ ...nameError, error: false });
     setDescriptionError({ ...descriptionError, error: false });
@@ -135,8 +134,6 @@ const CreateItem = () => {
         <br/>
         <Button type="submit" variant='info' >Submit</Button>
       </Form>
-      <br/>
-      <Link to='/'>Back To Items</Link>
     </Container>
   </>
   )

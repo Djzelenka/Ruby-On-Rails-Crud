@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react'
-import {useParams, Link} from 'react-router-dom';
+import {useParams, useHistory, Link} from 'react-router-dom';
 import constants from '../../utlities/constants';
 import httpFetchHelper from '../../utlities/httpHelper';
-import { Card, Container, Row, Col } from 'react-bootstrap';
+import { Card, Container } from 'react-bootstrap';
 
 const Item = () => {
+  const history = useHistory();
   const params = useParams();
   const [error, setError] = useState(false);
 
@@ -14,27 +15,34 @@ const Item = () => {
     description: '',
     cost: 0
   });
+  const [id, setId] = useState(null);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [cost, setCost] = useState(0);
 
   useEffect(() => {
     const url = `/items/${params.id}`
 
-    const getItem = async (item) => {
+    const getItem = async () => {
       const response = await httpFetchHelper(
       url, constants.GET_METHOD,
       );
       if (response.ok) {
-        const itemData = response.data.data      
+        const itemData = response.data.data       
         setItem({
           name: itemData.attributes.name, 
           description: response.data.data.attributes.description, 
           cost: response.data.data.attributes.cost, 
           id: itemData.id 
         })
+        console.log(response.data);
+        console.log(itemData);
+        setTimeOut(() => console.log(item), 1000);
       } else {
         setError(true)
       } 
     };  
-    getItem(item);
+    getItem();
   }, [params.id])
 
 
@@ -51,9 +59,7 @@ const Item = () => {
             <Link to={`/item/edit/${item.id}`}>Update Item</Link>
           </Card.Body>
         </Card>
-        <Row>
-          <Col md={{ span: 3, offset: 3}}><Link to='/'>Back To Items</Link></Col>
-        </Row>
+        <Link to='/items'>Back To Items</Link>
       </Container>
     </>
   )

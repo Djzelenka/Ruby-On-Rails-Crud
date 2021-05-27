@@ -3,7 +3,6 @@ import { useHistory, useParams, Link } from 'react-router-dom';
 import {Form, Button, Container } from 'react-bootstrap'
 import httpFetchHelper from '../../utlities/httpHelper';
 import constants from '../../utlities/constants';
-import numberCheck from '../../utlities/helpers';
 
 const EditItem = () => {
   const [item, setItem] = useState({
@@ -23,7 +22,7 @@ const EditItem = () => {
     error: false
   });
   const [costError, setCostError] = useState({
-    msg: 'Item must be non-negative with a max of two decimal places',
+    msg: 'Item must be non-negative decimal',
     error: false 
   });
   const params = useParams();
@@ -45,6 +44,9 @@ const EditItem = () => {
           cost: response.data.data.attributes.cost, 
         })
         setId(parseInt(params.id));
+        console.log(response.data);
+       
+        console.log(item);
       } else {
         setError(true)
       } 
@@ -52,20 +54,20 @@ const EditItem = () => {
     getItem();
   }, [params.id])
 
- const inputHandler = (e) => {
+  const inputHandler = (e) => {
     const { name, value } = e.target;
     switch (name) {
       case 'name' :
         setItem({ ...item, name: value });
-        setNameError({  ...nameError, error: false});
+        setNameError(false);
         break;
       case 'description' :
         setItem({ ...item, description: value });
-        setDescriptionError({ ...descriptionError, error: false});
+        setDescriptionError(false);
         break;
       case 'cost' :
-        setItem({ ...item, cost: value });
-        setCostError({ ...costError, error: false});
+        setItem({ ...item, cost: value});
+        setCostError(false);
         break;
       default:
         break;
@@ -83,10 +85,9 @@ const EditItem = () => {
 
       resetValidationErrors();
       
-      const url = `/items/${params.id}`;
-      const cost = item.cost;
+      const url = `/items/${params.id}`
       
-      let formError = false;
+      let formError = false
 
       if (item.name.length > 20 || item.name.length < 1 ) {
         formError = true;
@@ -96,13 +97,13 @@ const EditItem = () => {
         formError = true;
         setDescriptionError({ ...descriptionError, error: true });
       }
-      if (item.cost < 0 || !numberCheck(cost)) {
+      if (item.cost < 0) {
         formError = true;
         setCostError({ ...costError, error: true });
       }
       if (!formError) {
-        setItem({ ...item, cost: parseFloat(cost) });
         const response = await httpFetchHelper(url, constants.PUT_METHOD, item);
+        console.log(response);
         if (response.ok) {
           history.push(`/item/${id}`);
         }
@@ -112,8 +113,10 @@ const EditItem = () => {
       }
   }
 
-  const handleDelete = () => {
-    const url = `/items/${params.id}`;
+  const handleDelete = (id) => {
+    console.log(id);
+    debugger
+    const url = `/items/${id}`;
       httpFetchHelper(url, constants.DELET_METHOD);
       history.push(`/`);
   }
@@ -121,66 +124,65 @@ const EditItem = () => {
 
   if (apiError) {
     return <h1>Oops something went wrong</h1>
-  } 
-  else { 
+  } else { 
 
-    return(
-      <>
-        <Container>
-          <h2>Edit Item</h2>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="name">
-              <Form.Label>Name</Form.Label>
-              <Form.Control 
-              name='name'
-              type='input' 
-              onChange={inputHandler}
-              value={item.name}
-              isInvalid={nameError.error}
-              />
-              <Form.Control.Feedback type='invalid'>
-                {nameError.msg}
-              </Form.Control.Feedback>
-            </Form.Group>
+      return(
+        <>
+          <Container>
+            <h2>Edit Item</h2>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group controlId="name">
+                <Form.Label>Name</Form.Label>
+                <Form.Control 
+                name='name'
+                type='input' 
+                onChange={inputHandler}
+                value={item.name}
+                isInvalid={nameError.error}
+                />
+                <Form.Control.Feedback type='invalid'>
+                  {nameError.msg}
+                </Form.Control.Feedback>
+              </Form.Group>
 
-            <Form.Group controlId="desciption">
-              <Form.Label>Description</Form.Label>
-              <Form.Control 
-              name='description'
-              type='input'  
-              onChange={inputHandler}
-              value={item.description}
-              isInvalid={descriptionError.error}
-              />
-              <Form.Control.Feedback type='invalid'>
-                {descriptionError.msg}
-              </Form.Control.Feedback>
-            </Form.Group>
+              <Form.Group controlId="desciption">
+                <Form.Label>Description</Form.Label>
+                <Form.Control 
+                name='description'
+                type='input'  
+                onChange={inputHandler}
+                value={item.description}
+                isInvalid={descriptionError.error}
+                />
+                <Form.Control.Feedback type='invalid'>
+                  {descriptionError.msg}
+                </Form.Control.Feedback>
+              </Form.Group>
 
-            <Form.Group controlId="cost">
-              <Form.Label>Cost</Form.Label>
-              <Form.Control 
-              name='cost'
-              type='input' 
-              onChange={inputHandler}
-              value={item.cost}
-              isInvalid={costError.error}
-              />
-              <Form.Control.Feedback type='invalid'>
-                {costError.msg}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Button type="submit" variant='info' >Submit</Button>
-          </Form>
-          <br/>
-          <Button variant="danger" onClick={handleDelete}>Delete Item</Button>
-          <br/>
-          <br/>
-          <Link to={`/item/${id}`}>Back to Item</Link>
-        </Container>
-      </>
-    )
-  }
+              <Form.Group controlId="cost">
+                <Form.Label>Cost</Form.Label>
+                <Form.Control 
+                name='cost'
+                type='number' 
+                onChange={inputHandler}
+                value={item.cost}
+                isInvalid={costError.error}
+                />
+                <Form.Control.Feedback type='invalid'>
+                  {costError.msg}
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Button type="submit" variant='info' >Submit</Button>
+            </Form>
+            <br/>
+            <Button variant="danger" onClick={handleDelete}>Delete Item</Button>
+            <br/>
+            <br/>
+            <Link to={`/item/${id}`}>Back to Item</Link>
+          </Container>
+        </>
+        )
+      }
 }
 
 export default EditItem;

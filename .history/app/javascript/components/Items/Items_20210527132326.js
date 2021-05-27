@@ -26,8 +26,7 @@ const Items = () => {
   }, [items.length])
 
   const divStyle = {
-    paddingTop: '0px',
-    paddingBottom: '30px',
+    padding: '20px',
     textAlign: 'center',
   };
 
@@ -53,12 +52,11 @@ const Items = () => {
       <div> This is the index items view of the app </div> 
       <br/>
       <Container>
-        <ul>{list}</ul>
-        <div style={divStyle}>
-          <Link  to={`item/create/new`}>Create New Item</Link>
-        </div>          
+        <ul>{list}</ul> 
+          
       </Container>
-
+        <Link style={divStyle} to={`items/create`}>Create New Item</Link>
+          <br/>
     </>  
   );
 }

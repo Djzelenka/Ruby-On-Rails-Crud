@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react'
-import {useParams, Link} from 'react-router-dom';
+import {useParams, useHistory, Link} from 'react-router-dom';
 import constants from '../../utlities/constants';
 import httpFetchHelper from '../../utlities/httpHelper';
 import { Card, Container, Row, Col } from 'react-bootstrap';
 
 const Item = () => {
+  const history = useHistory();
   const params = useParams();
   const [error, setError] = useState(false);
 
@@ -35,6 +36,7 @@ const Item = () => {
       } 
     };  
     getItem(item);
+    setTimeout(() => console.log({item}), 1000);
   }, [params.id])
 
 

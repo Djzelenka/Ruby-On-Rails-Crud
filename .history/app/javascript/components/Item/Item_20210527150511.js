@@ -35,6 +35,7 @@ const Item = () => {
       } 
     };  
     getItem(item);
+    setTimeout(() => console.log({item}), 1000);
   }, [params.id])
 
 

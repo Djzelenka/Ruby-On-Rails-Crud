@@ -23,7 +23,7 @@ const EditItem = () => {
     error: false
   });
   const [costError, setCostError] = useState({
-    msg: 'Item must be non-negative with a max of two decimal places',
+    msg: 'Item must be non-negative decimal',
     error: false 
   });
   const params = useParams();
@@ -121,66 +121,65 @@ const EditItem = () => {
 
   if (apiError) {
     return <h1>Oops something went wrong</h1>
-  } 
-  else { 
+  } else { 
 
-    return(
-      <>
-        <Container>
-          <h2>Edit Item</h2>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="name">
-              <Form.Label>Name</Form.Label>
-              <Form.Control 
-              name='name'
-              type='input' 
-              onChange={inputHandler}
-              value={item.name}
-              isInvalid={nameError.error}
-              />
-              <Form.Control.Feedback type='invalid'>
-                {nameError.msg}
-              </Form.Control.Feedback>
-            </Form.Group>
+      return(
+        <>
+          <Container>
+            <h2>Edit Item</h2>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group controlId="name">
+                <Form.Label>Name</Form.Label>
+                <Form.Control 
+                name='name'
+                type='input' 
+                onChange={inputHandler}
+                value={item.name}
+                isInvalid={nameError.error}
+                />
+                <Form.Control.Feedback type='invalid'>
+                  {nameError.msg}
+                </Form.Control.Feedback>
+              </Form.Group>
 
-            <Form.Group controlId="desciption">
-              <Form.Label>Description</Form.Label>
-              <Form.Control 
-              name='description'
-              type='input'  
-              onChange={inputHandler}
-              value={item.description}
-              isInvalid={descriptionError.error}
-              />
-              <Form.Control.Feedback type='invalid'>
-                {descriptionError.msg}
-              </Form.Control.Feedback>
-            </Form.Group>
+              <Form.Group controlId="desciption">
+                <Form.Label>Description</Form.Label>
+                <Form.Control 
+                name='description'
+                type='input'  
+                onChange={inputHandler}
+                value={item.description}
+                isInvalid={descriptionError.error}
+                />
+                <Form.Control.Feedback type='invalid'>
+                  {descriptionError.msg}
+                </Form.Control.Feedback>
+              </Form.Group>
 
-            <Form.Group controlId="cost">
-              <Form.Label>Cost</Form.Label>
-              <Form.Control 
-              name='cost'
-              type='input' 
-              onChange={inputHandler}
-              value={item.cost}
-              isInvalid={costError.error}
-              />
-              <Form.Control.Feedback type='invalid'>
-                {costError.msg}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Button type="submit" variant='info' >Submit</Button>
-          </Form>
-          <br/>
-          <Button variant="danger" onClick={handleDelete}>Delete Item</Button>
-          <br/>
-          <br/>
-          <Link to={`/item/${id}`}>Back to Item</Link>
-        </Container>
-      </>
-    )
-  }
+              <Form.Group controlId="cost">
+                <Form.Label>Cost</Form.Label>
+                <Form.Control 
+                name='cost'
+                type='number' 
+                onChange={inputHandler}
+                value={item.cost}
+                isInvalid={costError.error}
+                />
+                <Form.Control.Feedback type='invalid'>
+                  {costError.msg}
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Button type="submit" variant='info' >Submit</Button>
+            </Form>
+            <br/>
+            <Button variant="danger" onClick={handleDelete}>Delete Item</Button>
+            <br/>
+            <br/>
+            <Link to={`/item/${id}`}>Back to Item</Link>
+          </Container>
+        </>
+        )
+      }
 }
 
 export default EditItem;

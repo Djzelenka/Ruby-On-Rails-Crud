@@ -23,7 +23,7 @@ const EditItem = () => {
     error: false
   });
   const [costError, setCostError] = useState({
-    msg: 'Item must be non-negative with a max of two decimal places',
+    msg: 'Item must be non-negative decimal',
     error: false 
   });
   const params = useParams();
@@ -124,7 +124,7 @@ const EditItem = () => {
   } 
   else { 
 
-    return(
+    return (
       <>
         <Container>
           <h2>Edit Item</h2>
@@ -161,7 +161,7 @@ const EditItem = () => {
               <Form.Label>Cost</Form.Label>
               <Form.Control 
               name='cost'
-              type='input' 
+              type='number' 
               onChange={inputHandler}
               value={item.cost}
               isInvalid={costError.error}

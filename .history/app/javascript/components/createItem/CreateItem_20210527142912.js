@@ -1,15 +1,14 @@
-import React, { useState} from 'react'
-import { useHistory, Link } from 'react-router-dom';
+import React, { useState, useEffect} from 'react'
+import { useHistory } from 'react-router';
 import {Form, Button, Container } from 'react-bootstrap'
 import httpFetchHelper from '../../utlities/httpHelper';
 import constants from '../../utlities/constants';
-import numberCheck from '../../utlities/helpers';
 
 const CreateItem = () => {
   const [item, setItem] = useState({
     name: '',
     description: '',
-    cost: 0
+    cost: null
   });
 
   const [apiError, setApiError] = useState(false);
@@ -22,11 +21,20 @@ const CreateItem = () => {
     error: false
   });
   const [costError, setCostError] = useState({
-    msg: 'Item must be non-negative with a max of two decimal places',
+    msg: 'Item must be non-negative decimal',
     error: false 
   });
 
   const history = useHistory();
+
+  const numberCheck = (string) =>{
+    if (string.match(/^\d{1,}(\.\d{0,4})?$/) ){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
   const inputHandler = (e) => {
     const { name, value } = e.target;
@@ -47,7 +55,6 @@ const CreateItem = () => {
         break;
     }
   }
-
   const resetValidationErrors = () => {
     setNameError({ ...nameError, error: false });
     setDescriptionError({ ...descriptionError, error: false });
@@ -79,7 +86,7 @@ const CreateItem = () => {
         setItem({ ...item, cost: parseFloat(cost) });
         const response =  await httpFetchHelper(url, constants.POST_METHOD, item);
         if (response.ok) {
-          history.push('/');
+          history.push('/items');
         }
         else {
           setApiError(true);
@@ -135,8 +142,6 @@ const CreateItem = () => {
         <br/>
         <Button type="submit" variant='info' >Submit</Button>
       </Form>
-      <br/>
-      <Link to='/'>Back To Items</Link>
     </Container>
   </>
   )

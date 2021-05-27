@@ -26,8 +26,7 @@ const Items = () => {
   }, [items.length])
 
   const divStyle = {
-    paddingTop: '0px',
-    paddingBottom: '30px',
+    padding: '20px',
     textAlign: 'center',
   };
 
@@ -54,8 +53,8 @@ const Items = () => {
       <br/>
       <Container>
         <ul>{list}</ul>
-        <div style={divStyle}>
-          <Link  to={`item/create/new`}>Create New Item</Link>
+          <div style={divStyle}>
+          <Link  to={`items/create`}>Create New Item</Link>
         </div>          
       </Container>
 

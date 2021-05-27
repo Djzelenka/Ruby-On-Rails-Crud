@@ -25,11 +25,6 @@ const Items = () => {
     getItems();
   }, [items.length])
 
-  const divStyle = {
-    paddingTop: '0px',
-    paddingBottom: '30px',
-    textAlign: 'center',
-  };
 
   const list = items.map( item => {
     return (
@@ -53,14 +48,13 @@ const Items = () => {
       <div> This is the index items view of the app </div> 
       <br/>
       <Container>
-        <ul>{list}</ul>
-        <div style={divStyle}>
-          <Link  to={`item/create/new`}>Create New Item</Link>
-        </div>          
+        <ul>{list}</ul> 
+        <Row>
+          <Col md={{ span: 3, offset: 3}}><Link to={`items/create`}>Create New Item</Link></Col>
+        </Row>
       </Container>
-
     </>  
   );
 }
 
-export default Items;
+export default Items

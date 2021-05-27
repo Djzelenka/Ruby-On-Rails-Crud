@@ -55,7 +55,7 @@ const Items = () => {
       <Container>
         <ul>{list}</ul>
         <div style={divStyle}>
-          <Link  to={`item/create/new`}>Create New Item</Link>
+          <Link  to={`item/create`}>Create New Item</Link>
         </div>          
       </Container>
 

@@ -135,7 +135,6 @@ const CreateItem = () => {
         <br/>
         <Button type="submit" variant='info' >Submit</Button>
       </Form>
-      <br/>
       <Link to='/'>Back To Items</Link>
     </Container>
   </>

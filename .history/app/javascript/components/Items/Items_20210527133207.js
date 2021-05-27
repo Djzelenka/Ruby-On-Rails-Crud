@@ -34,7 +34,7 @@ const Items = () => {
   const list = items.map( item => {
     return (
     <>
-    <Card bg="dark" className="text-center" border="primary" text="white" key={item.id}>
+    <Card bg="dark" className="text-center" border="primary" text="white" key={item.id} style={{ width: '15rem'}}>
       <Card.Body>
         <Card.Title>{item.attributes.name}</Card.Title>
         <Card.Text>{item.attributes.description}</Card.Text>
@@ -55,7 +55,7 @@ const Items = () => {
       <Container>
         <ul>{list}</ul>
         <div style={divStyle}>
-          <Link  to={`item/create/new`}>Create New Item</Link>
+          <Link  to={`items/create`}>Create New Item</Link>
         </div>          
       </Container>
 
