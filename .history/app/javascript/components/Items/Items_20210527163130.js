@@ -1,7 +1,7 @@
 import React,  {useState, useEffect} from 'react';
 import constants from '../../utlities/constants';
 import httpFetchHelper from '../../utlities/httpHelper';
-import {Container, Card} from 'react-bootstrap';
+import {Container, Row, Card, Col} from 'react-bootstrap';
 import {BrowserRouter as Router, Link} from 'react-router-dom'
 
 const Items = () => {

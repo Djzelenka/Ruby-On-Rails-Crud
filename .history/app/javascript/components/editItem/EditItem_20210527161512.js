@@ -9,7 +9,7 @@ const EditItem = () => {
   const [item, setItem] = useState({
     name: '',
     description: '',
-    cost: '0'
+    cost: 0
   });
   const [id, setId] = useState(null);
 
@@ -42,7 +42,7 @@ const EditItem = () => {
         setItem({
           name: itemData.attributes.name, 
           description: response.data.data.attributes.description, 
-          cost: `${response.data.data.attributes.cost}`, 
+          cost: response.data.data.attributes.cost, 
         })
         setId(parseInt(params.id));
       } else {

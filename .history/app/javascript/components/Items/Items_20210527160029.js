@@ -1,7 +1,7 @@
 import React,  {useState, useEffect} from 'react';
 import constants from '../../utlities/constants';
 import httpFetchHelper from '../../utlities/httpHelper';
-import {Container, Card} from 'react-bootstrap';
+import {Container, Row, Card, Col} from 'react-bootstrap';
 import {BrowserRouter as Router, Link} from 'react-router-dom'
 
 const Items = () => {
@@ -31,11 +31,6 @@ const Items = () => {
     textAlign: 'center',
   };
 
-  const ulStyle = {
-    overflowY: 'scroll',
-    maxHeight: '600px'
-  }
-
   const list = items.map( item => {
     return (
     <div key={item.id}>
@@ -58,7 +53,7 @@ const Items = () => {
       <div> This is the index items view of the app </div> 
       <br/>
       <Container>
-        <ul style={ulStyle}>{list}</ul>
+        <ul>{list}</ul>
         <div style={divStyle}>
           <Link  to={`item/create/new`}>Create New Item</Link>
         </div>          

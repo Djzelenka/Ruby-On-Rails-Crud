@@ -9,7 +9,7 @@ const EditItem = () => {
   const [item, setItem] = useState({
     name: '',
     description: '',
-    cost: '0'
+    cost: 0
   });
   const [id, setId] = useState(null);
 
@@ -42,16 +42,15 @@ const EditItem = () => {
         setItem({
           name: itemData.attributes.name, 
           description: response.data.data.attributes.description, 
-          cost: `${response.data.data.attributes.cost}`, 
+          cost: response.data.data.attributes.cost, 
         })
         setId(parseInt(params.id));
+        console.log(item.cost);
       } else {
         setError(true)
       } 
     };  
     getItem();
-    setCostError({ ...costError, error: false});
-    console.log(item.cost);
   }, [params.id])
 
  const inputHandler = (e) => {
@@ -98,7 +97,6 @@ const EditItem = () => {
         formError = true;
         setDescriptionError({ ...descriptionError, error: true });
       }
-      debugger
       if (item.cost < 0 || !numberCheck(cost)) {
         formError = true;
         setCostError({ ...costError, error: true });
