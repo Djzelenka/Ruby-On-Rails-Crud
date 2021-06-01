@@ -68,12 +68,6 @@ const CreateItem = () => {
     setCostError({ ...costError, error: false })
   }
 
-
-  /**
-   * @name handleSubmit
-   * @description takes care of form validation, and sends backend post request.
-   * @param {event} e 
-   */
   const handleSubmit = async (e) => {
       e.preventDefault();
 

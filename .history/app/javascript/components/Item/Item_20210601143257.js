@@ -6,7 +6,7 @@ import { Card, Container, Row, Col } from 'react-bootstrap';
 
 /**
  * @name Item
- * @description renders an item details page
+ * @returns renders an item details page
  */
 const Item = () => {
   const params = useParams();
@@ -19,8 +19,6 @@ const Item = () => {
     cost: 0
   });
 
-  // Makes backend call to retrieve item information. and sets state error
-  // if backend call fails   
   useEffect(() => {
     const url = `/items/${params.id}`
 

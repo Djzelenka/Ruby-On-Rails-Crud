@@ -6,7 +6,7 @@ import { Card, Container, Row, Col } from 'react-bootstrap';
 
 /**
  * @name Item
- * @description renders an item details page
+ * @returns renders an item details page
  */
 const Item = () => {
   const params = useParams();
