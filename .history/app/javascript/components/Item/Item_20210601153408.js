@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {useParams, Link} from 'react-router-dom';
-import constants from '../../utilities/constants';
-import httpFetchHelper from '../../utilities/httpHelper';
-import { Card, Container} from 'react-bootstrap';
+import constants from '../../utlities/constants';
+import httpFetchHelper from '../../utlities/httpHelper';
+import { Card, Container, Row, Col } from 'react-bootstrap';
 
 /**
  * @name Item

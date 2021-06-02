@@ -2,7 +2,7 @@ import React,  {useState, useEffect} from 'react';
 import constants from '../../utilities/constants';
 import httpFetchHelper from '../../utilities/httpHelper';
 import {Container, Card} from 'react-bootstrap';
-import {BrowserRouter, Link} from 'react-router-dom'
+import {BrowserRouter as Router, Link} from 'react-router-dom'
 
 /**
  * @name Items

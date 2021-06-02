@@ -1,9 +1,9 @@
 import React, { useState, useEffect} from 'react'
 import { useHistory, useParams, Link } from 'react-router-dom';
 import {Form, Button, Container } from 'react-bootstrap'
-import httpFetchHelper from '../../utilities/httpHelper';
-import constants from '../../utilities/constants';
-import numberCheck from '../../utilities/helpers';
+import httpFetchHelper from '../../utlities/httpHelper';
+import constants from '../../utlities/constants';
+import numberCheck from '../../utlities/helpers';
 
 
 /**
@@ -29,7 +29,7 @@ const EditItem = () => {
     error: false
   });
   const [costError, setCostError] = useState({
-    msg: 'Item cost must be non-negative with a max of two decimal places',
+    msg: 'Item must be non-negative with a max of two decimal places',
     error: false 
   });
   const params = useParams();
