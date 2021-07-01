@@ -6,6 +6,7 @@ import constants from './constants';
  * @param {string} path appended to the API_ROOT_URL constant to form the url
  * @param {string} method 'GET' 'POST' 'PUT' 'DELETE' are options
  * @param {*} body any data type provided is converted to JSON for the request body.
+ * @param {string} fromFile the name of the file calling this method, for debug purposes.
  * @returns {object} {ok: true/false, data: response data}
  */
 export async function httpFetchHelper(path, method, body) {

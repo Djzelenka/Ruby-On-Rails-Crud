@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :items
 
   get "*path", to: "pages#index", via: :all
+  
 end

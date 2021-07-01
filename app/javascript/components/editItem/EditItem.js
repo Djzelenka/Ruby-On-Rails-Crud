@@ -101,12 +101,10 @@ const EditItem = () => {
    */
   const handleSubmit = async (e) => {
       e.preventDefault();
-
       resetValidationErrors();
       
       const url = `/items/${params.id}`;
       const cost = item.cost;
-      
       let formError = false;
 
       if (item.name.length > 20 || item.name.length < 1 ) {

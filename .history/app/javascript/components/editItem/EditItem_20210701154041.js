@@ -1,15 +1,21 @@
 import React, { useState, useEffect} from 'react'
 import { useHistory, useParams, Link } from 'react-router-dom';
 import {Form, Button, Container } from 'react-bootstrap'
-import httpFetchHelper from '../../utlities/httpHelper';
-import constants from '../../utlities/constants';
-import numberCheck from '../../utlities/helpers';
+import httpFetchHelper from '../../utilities/httpHelper';
+import constants from '../../utilities/constants';
+import numberCheck from '../../utilities/helpers';
 
+
+/**
+ * @name EditItem
+ * @description renders a form populated with item data used
+ * to update the current item in the database.  
+ */
 const EditItem = () => {
   const [item, setItem] = useState({
     name: '',
     description: '',
-    cost: 0
+    cost: '0'
   });
   const [id, setId] = useState(null);
 
@@ -23,12 +29,13 @@ const EditItem = () => {
     error: false
   });
   const [costError, setCostError] = useState({
-    msg: 'Item must be non-negative with a max of two decimal places',
+    msg: 'Item cost must be non-negative with a max of two decimal places',
     error: false 
   });
   const params = useParams();
   const history = useHistory();
 
+  // makes backend api call to populate the form with the current item data.  
   useEffect(() => {
     const url = `/items/${params.id}`
 
@@ -37,12 +44,11 @@ const EditItem = () => {
       url, constants.GET_METHOD,
       );
       if (response.ok) {
-        const itemData = response.data.data  
-        console.log(itemData);     
+        const itemData = response.data.data      
         setItem({
           name: itemData.attributes.name, 
           description: response.data.data.attributes.description, 
-          cost: response.data.data.attributes.cost, 
+          cost: `${response.data.data.attributes.cost}`, 
         })
         setId(parseInt(params.id));
       } else {
@@ -50,9 +56,13 @@ const EditItem = () => {
       } 
     };  
     getItem();
-    console.log(item.cost);
   }, [params.id])
 
+  /**
+   * @name inputHandler
+   * @description updates state of each input
+   * @param {event} e 
+   */
  const inputHandler = (e) => {
     const { name, value } = e.target;
     switch (name) {
@@ -73,20 +83,28 @@ const EditItem = () => {
     }
   }
 
+  /**
+   * @name resetValidationErrors
+   * @description helper function to reset validation errors in state
+   */
   const resetValidationErrors = () => {
     setNameError({ ...nameError, error: false });
     setDescriptionError({ ...descriptionError, error: false });
     setCostError({ ...costError, error: false })
   }
 
+
+  /**
+   * @name submitHandler
+   * @description takes care of form validation, and sends api request to backend.
+   * @param {event} e 
+   */
   const handleSubmit = async (e) => {
       e.preventDefault();
-
       resetValidationErrors();
       
       const url = `/items/${params.id}`;
       const cost = item.cost;
-      
       let formError = false;
 
       if (item.name.length > 20 || item.name.length < 1 ) {
@@ -113,6 +131,10 @@ const EditItem = () => {
       }
   }
 
+  /**
+   * @name handleDelete
+   * @description handles delete api call to backend.  
+   */
   const handleDelete = () => {
     const url = `/items/${params.id}`;
       httpFetchHelper(url, constants.DELET_METHOD);
@@ -120,6 +142,7 @@ const EditItem = () => {
   }
 
 
+  // renders error if backend call fails.  
   if (apiError) {
     return <h1>Oops something went wrong</h1>
   } 
